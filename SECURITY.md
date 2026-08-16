@@ -43,10 +43,21 @@ Beyond the usual, these are specifically in scope because of what this repositor
 ## Hardening in place
 
 - Every GitHub Action pinned to a full commit SHA, never a mutable tag
+- Repository default workflow permissions set to `read`, and workflows cannot approve pull requests
 - Workflow `permissions:` scoped to `contents: read`
 - No workflow step may swallow a failure — no `|| true`, no `continue-on-error`
 - Secret scanning and push protection enabled
-- Dependabot alerts and security updates enabled
-- `main` protected: pull request required, status checks must pass, force-push and deletion blocked
-- CodeQL analysis on every push and pull request
+- Dependabot alerts, security updates, and weekly version updates enabled
+- Private vulnerability reporting enabled
+- `main` protected: pull request required, status checks must pass, conversation resolution
+  required, force-push and deletion blocked, and the rules apply to administrators too
+- CodeQL code scanning covering **Python and GitHub Actions**, on push, on pull request, and weekly
 - One runtime dependency, pinned
+- Merge surface reduced to squash-only with automatic branch deletion; wiki and projects disabled
+
+**A note on the CodeQL configuration.** This repository originally shipped its own CodeQL
+workflow. It failed, with `CodeQL analyses from advanced configurations cannot be processed when
+the default setup is enabled` — GitHub's default setup was already running and already covered
+both Python *and* the Actions workflows, which is broader than the hand-written workflow was. The
+custom workflow was removed rather than kept alongside a disabled default. Two scanners where one
+suffices is not defence in depth; it is one scanner and one thing to maintain badly.

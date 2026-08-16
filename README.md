@@ -2,9 +2,37 @@
 
 **Describes Plaid in one config file, renders it into a working GRC program, and ships the two framework mappings the posting names that the engine could not render. Building it surfaced two silent-failure defects in my own engine. Both are fixed, both have regression tests, and the tests fail if you revert the fix.**
 
+[![tests](https://github.com/tiffanidickerson437-lang/plaid-grc-engineering-program/actions/workflows/tests.yml/badge.svg)](../../actions/workflows/tests.yml)
+[![code scanning](https://img.shields.io/badge/CodeQL-python%20%2B%20actions-2b5cff)](../../security/code-scanning)
 [![sources](https://img.shields.io/badge/sources-public%20only%20%C2%B7%20checked%2015%20Aug%202026-1b1d22)](00-governance/)
 [![engine](https://img.shields.io/badge/engine-compliance--program-2b5cff)](https://github.com/tiffanidickerson437-lang/compliance-program)
 [![evidence](https://img.shields.io/badge/evidence__in__repo-none-6b7280)](#ground-rules)
+
+**▶ [The walkthrough site](https://tiffanidickerson437-lang.github.io/plaid-grc-engineering-program/)** — the same argument in one page, matched to the posting line by line.
+
+## Run it — 30 seconds, no key, no network
+
+```bash
+git clone https://github.com/tiffanidickerson437-lang/plaid-grc-engineering-program
+cd plaid-grc-engineering-program && pip install pyyaml
+
+python3 04-evidence-and-audit/data/ksi_coverage.py     # 46 FedRAMP 20x KSIs, resolved
+python3 04-evidence-and-audit/data/strm_coverage.py    # 26 ISO 27701 requirements
+```
+
+```
+FedRAMP 20x CR26 — 46 KSIs across 10 categories, resolved against 44 in-scope controls
+  covered: 39   partial: 7
+VALID — every KSI resolves, every partial names its delta, and no row
+        asserts a company's implementation state.
+```
+
+Then attack the checkers themselves — `test_ksi_coverage.py` (17 tests) and
+`test_strm_coverage.py` (16). Gut either validator to always-pass and its own suite turns red.
+
+Same config, same mappings, same output every run. No model in the pass/fail path.
+
+---
 
 This is how I'd start the GRC Engineering role, built entirely from what Plaid already publishes.
 
