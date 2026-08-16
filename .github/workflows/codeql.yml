@@ -1,0 +1,49 @@
+# Static analysis of the checkers themselves.
+#
+# The tools in this repository decide whether a control mapping is valid. That makes their own
+# correctness a security property, not just a quality one — a validator with an injection or a
+# path-traversal defect is a validator an attacker can make report "clean."
+#
+# Runs on every push and pull request rather than on a schedule alone, because a defect
+# introduced in a PR should be visible before the merge, not a week later.
+
+name: codeql
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Weekly, so a newly published rule finds existing code even with no commits.
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    name: analyze python
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      security-events: write   # required to upload the SARIF results
+      actions: read
+    steps:
+      - name: Check out
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@ff2f1c621b7f889edc0d3c761ac2e6a3f8cdb0dd # v4.37.7
+        with:
+          languages: python
+          # security-and-quality is a superset of the default security queries. This is a small
+          # codebase; there is no reason to run the narrower set.
+          queries: security-and-quality
+
+      - name: Analyze
+        uses: github/codeql-action/analyze@ff2f1c621b7f889edc0d3c761ac2e6a3f8cdb0dd # v4.37.7
+        with:
+          category: "/language:python"

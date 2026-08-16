@@ -56,11 +56,11 @@
 #
 # PORTED, NOT REGENERATED. This mapping is control-to-KSI, and the controls are the
 # engine's — so it is company-agnostic by construction and carries over unchanged from the
-# Mattermost instance where it was first built. Every one of the 44 controls the Plaid
-# config renders is present in the engine's set, so no row was dropped. Only the
-# company-specific `note` fields were rewritten; the relationships were not re-derived,
-# because re-deriving a company-agnostic mapping per company is exactly the duplication the
-# engine exists to prevent.
+# engine instance where it was first built. Every one of the 44 controls the Plaid config
+# renders is present in the engine's set, so no row was dropped. Only the company-specific
+# `note` fields were rewritten; the relationships were not re-derived, because re-deriving a
+# company-agnostic mapping per company is exactly the duplication the engine exists to
+# prevent — and that portability is the point, not a shortcut.
 # =============================================================================
 
 metadata:
