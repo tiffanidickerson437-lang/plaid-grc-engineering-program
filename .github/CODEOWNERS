@@ -1,0 +1,18 @@
+# Every path in this repository has a named owner. The merge is the authorization.
+#
+# Paths are listed most-general first, most-specific last — GitHub applies the LAST
+# matching rule, so the ordering here is load-bearing rather than cosmetic.
+
+*                                   @tiffanidickerson437-lang
+
+# The mappings are the substance. A change here changes what the program claims to cover.
+/mappings/                          @tiffanidickerson437-lang
+/04-evidence-and-audit/data/        @tiffanidickerson437-lang
+
+# The config is the single input. Every downstream artifact resolves from it, so an
+# unreviewed edit here silently re-renders the whole program.
+/generated/companies/plaid/         @tiffanidickerson437-lang
+
+# The research position. Changing a sourced claim without changing its source is the
+# failure mode this repository exists to avoid.
+/00-governance/                     @tiffanidickerson437-lang

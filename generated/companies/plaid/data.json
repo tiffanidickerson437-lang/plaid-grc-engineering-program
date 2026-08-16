@@ -1,0 +1,2536 @@
+{
+  "company": {
+    "name": "Plaid",
+    "legal": "Plaid Inc.",
+    "repo": "tiffanidickerson437-lang/compliance-program",
+    "listings": [],
+    "description": "Financial data network. Consumer-permissioned connections between people's bank accounts and the apps they choose, delivered as an API and the Link SDK across 12,000 institutions in the US, Canada, UK and Europe. Founded 2013. Holds SOC 2 Type 2, ISO/IEC 27001 and ISO/IEC 27701 and publishes them through a two-tier trust center. Two separately regulated European entities carry open banking authorisations. The security organization treats controls as shared infrastructure â€” CI templates, Terraform modules and services that enforce the same checks across every repository by default â€” and this role extends that same pattern from security scanning to compliance evidence.",
+    "topics": [
+      "plaid",
+      "grc",
+      "compliance-as-code",
+      "ai-governance",
+      "soc2",
+      "iso27001",
+      "iso27701",
+      "nist-csf",
+      "nist-800-53",
+      "gdpr",
+      "ccpa-cpra",
+      "fedramp-20x-ksi"
+    ]
+  },
+  "stats": [
+    {
+      "n": "1",
+      "label": "config file",
+      "sub": "company.yaml drives everything"
+    },
+    {
+      "n": "44",
+      "label": "controls",
+      "sub": "defined once, rendered per framework"
+    },
+    {
+      "n": "6",
+      "label": "frameworks",
+      "sub": "one control set, every view"
+    },
+    {
+      "n": "8",
+      "label": "pillars",
+      "sub": "governance to stakeholders"
+    }
+  ],
+  "frameworks": [
+    {
+      "id": "soc2",
+      "name": "SOC 2",
+      "full": "SOC 2 (TSC 2017)",
+      "kind": "primary"
+    },
+    {
+      "id": "iso27001",
+      "name": "ISO 27001",
+      "full": "ISO/IEC 27001:2022",
+      "kind": "primary"
+    },
+    {
+      "id": "nist_csf",
+      "name": "NIST CSF",
+      "full": "NIST CSF 2.0",
+      "kind": "core"
+    },
+    {
+      "id": "nist_800_53",
+      "name": "NIST 800-53",
+      "full": "NIST SP 800-53 Rev.5",
+      "kind": "core"
+    },
+    {
+      "id": "gdpr",
+      "name": "GDPR",
+      "full": "EU GDPR",
+      "kind": "privacy"
+    },
+    {
+      "id": "ccpa_cpra",
+      "name": "CCPA / CPRA",
+      "full": "CCPA / CPRA",
+      "kind": "privacy"
+    }
+  ],
+  "pillars": [
+    {
+      "id": "00",
+      "dir": "00-governance",
+      "name": "Governance",
+      "what": "Who owns the program and where authority sits.",
+      "why": "How Plaid's program handles governance — defined once and rendered into every framework's view.",
+      "reads": "Board · Audit & Risk · Internal Audit",
+      "hero": false,
+      "files": [
+        {
+          "name": "program-charter.md",
+          "note": "Purpose, scope, authority, operating model."
+        },
+        {
+          "name": "policy-hierarchy.yaml",
+          "note": "Every policy, its owner, cadence, version."
+        },
+        {
+          "name": "roles-and-responsibilities.md",
+          "note": "RACI by function and by activity."
+        },
+        {
+          "name": "risk-appetite-statement.md",
+          "note": "Appetite by category — owned by the business."
+        },
+        {
+          "name": "committee-charter.md",
+          "note": "Security Steering Committee cadence."
+        }
+      ]
+    },
+    {
+      "id": "01",
+      "dir": "01-risk-management",
+      "name": "Risk management",
+      "what": "Risk quantified in dollars, owned by the business.",
+      "why": "How Plaid's program handles risk management — defined once and rendered into every framework's view.",
+      "reads": "C-Suite · Board · GRC",
+      "hero": false,
+      "files": [
+        {
+          "name": "risk-register.yaml",
+          "note": "FAIR scenarios, highest-leverage risks first."
+        },
+        {
+          "name": "fair-model.md",
+          "note": "How quantification is applied, with a worked example."
+        },
+        {
+          "name": "nist-rmf-alignment.md",
+          "note": "How the register feeds the seven RMF steps."
+        },
+        {
+          "name": "risk-treatment-templates.md",
+          "note": "Accept, mitigate, transfer, avoid."
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "dir": "02-controls",
+      "name": "Controls",
+      "what": "The engine. One control defined once; every framework gets its view.",
+      "why": "How Plaid's program handles controls — defined once and rendered into every framework's view.",
+      "reads": "Auditors · Security · Engineering",
+      "hero": true,
+      "files": [
+        {
+          "name": "control-library.yaml",
+          "note": "Controls in full depth — statement, guidance, evidence schema."
+        },
+        {
+          "name": "framework-crosswalk.yaml",
+          "note": "One control, every framework it satisfies."
+        },
+        {
+          "name": "control-library.oscal.json",
+          "note": "The machine-readable, OSCAL-aligned catalog."
+        },
+        {
+          "name": "profiles/",
+          "note": "OSCAL profiles — one per framework view."
+        },
+        {
+          "name": "evidence-schemas/",
+          "note": "Field-level schema per control; evidence is computed."
+        }
+      ]
+    },
+    {
+      "id": "03",
+      "dir": "03-tprm",
+      "name": "Third-party risk",
+      "what": "Right-size diligence to what a vendor can actually touch.",
+      "why": "How Plaid's program handles third-party risk — defined once and rendered into every framework's view.",
+      "reads": "GRC · Legal/Privacy · Procurement",
+      "hero": false,
+      "files": [
+        {
+          "name": "vendor-tiering-model.md",
+          "note": "Tier by data access, not by vendor size."
+        },
+        {
+          "name": "tiered-intake-workflow.md",
+          "note": "Intake routes to the right depth of review."
+        },
+        {
+          "name": "attestation-reuse-register.yaml",
+          "note": "Reuse a current SOC 2 / ISO cert."
+        },
+        {
+          "name": "continuous-monitoring.md",
+          "note": "Reassess high-risk parties on cadence and change."
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "dir": "04-ai-governance",
+      "name": "AI governance",
+      "what": "Govern autonomous agents on sensitive data.",
+      "why": "How Plaid's program handles ai governance — defined once and rendered into every framework's view.",
+      "reads": "Security · Legal/Privacy · Board · Customers",
+      "hero": true,
+      "files": [
+        {
+          "name": "ai-control-set.md",
+          "note": "AAT-01 as the spine, decomposed into sub-controls."
+        },
+        {
+          "name": "agent-governance.md",
+          "note": "Agent identity, purpose-bound tokens, human gate, kill-switch."
+        },
+        {
+          "name": "owasp-llm-top10-mapping.md",
+          "note": "Each OWASP LLM Top 10 item → control → test."
+        },
+        {
+          "name": "responsible-ai-statement.md",
+          "note": "Customer-facing claims, each traced to a control."
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "dir": "05-secure-development",
+      "name": "Secure development",
+      "what": "Security in the SDLC as gates that produce evidence as a byproduct of shipping.",
+      "why": "How Plaid's program handles secure development — defined once and rendered into every framework's view.",
+      "reads": "Engineering · Security",
+      "hero": false,
+      "files": [
+        {
+          "name": "sdlc-control-gates.md",
+          "note": "Where security gates sit in the pipeline."
+        },
+        {
+          "name": "code-review-policy.md",
+          "note": "Independent review, enforced by code-owner rules."
+        },
+        {
+          "name": "secure-pipeline.md",
+          "note": "Build/test/security checks as required status checks."
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "dir": "06-evidence-and-audit",
+      "name": "Evidence and audit",
+      "what": "Evidence pre-validated before it ever reaches the auditor.",
+      "why": "How Plaid's program handles evidence and audit — defined once and rendered into every framework's view.",
+      "reads": "Auditors · GRC",
+      "hero": true,
+      "files": [
+        {
+          "name": "evidence-architecture.md",
+          "note": "How evidence is computed from systems of record."
+        },
+        {
+          "name": "continuous-evidence.md",
+          "note": "Readiness as a standing state, not a sprint."
+        },
+        {
+          "name": "poam-as-issues.md",
+          "note": "Plan of action & milestones, tracked as GitHub Issues."
+        },
+        {
+          "name": "trust-center-content.md",
+          "note": "What goes in the public trust center."
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "dir": "07-stakeholder-management",
+      "name": "Stakeholder management",
+      "what": "One posture, every audience.",
+      "why": "How Plaid's program handles stakeholder management — defined once and rendered into every framework's view.",
+      "reads": "Sales · Board · Customers · Every function",
+      "hero": false,
+      "files": [
+        {
+          "name": "stakeholder-map.yaml",
+          "note": "Every audience, what they need, how they read it."
+        },
+        {
+          "name": "sales-faq.yaml",
+          "note": "The security questions deals actually ask."
+        },
+        {
+          "name": "trust-collateral.md",
+          "note": "Reusable trust artifacts that shorten reviews."
+        }
+      ]
+    }
+  ],
+  "rootFiles": [
+    {
+      "name": "README.md",
+      "note": "The program of record. Start here."
+    },
+    {
+      "name": "config.example.yaml",
+      "note": "The single input. One file customizes the entire program.",
+      "config": true
+    },
+    {
+      "name": "config.yaml",
+      "note": "Your copy of the example, with real values."
+    },
+    {
+      "name": "30-60-90/",
+      "note": "Discover → Design → Operate, plus the maturity roadmap.",
+      "folder": true
+    },
+    {
+      "name": ".github/workflows/",
+      "note": "Drift monitor, evidence validator, report generator.",
+      "folder": true
+    }
+  ],
+  "flow": [
+    {
+      "key": "config",
+      "label": "company.yaml",
+      "kind": "input",
+      "title": "One config file",
+      "body": "Frameworks, data types, AI posture, listings, stack. Edit this one file and re-run the scaffold — the whole program re-renders. Adding a framework is a crosswalk mapping, never a new control.",
+      "tag": "the single input"
+    },
+    {
+      "key": "scaffold",
+      "label": "GitHub Action",
+      "kind": "machine",
+      "title": "The scaffold renders",
+      "body": "An Action filters the control library to the company's frameworks and turns on the pillars and families the config requires.",
+      "tag": "code, not a binder"
+    },
+    {
+      "key": "checks",
+      "label": "Daily checks",
+      "kind": "machine",
+      "title": "Control health is computed",
+      "body": "Scheduled jobs read the systems of record and compute pass or fail for each control. Code decides; the system of record supplies the evidence.",
+      "tag": "evidence is computed"
+    },
+    {
+      "key": "branch",
+      "label": "healthy / drift",
+      "kind": "branch",
+      "title": "Green, or a drift Issue",
+      "body": "Healthy → status stays green and evidence is recorded. Drift → a GitHub Issue opens automatically with the control ID, owner, framework impact, and evidence needed.",
+      "tag": "the Issue IS the due diligence"
+    },
+    {
+      "key": "ai",
+      "label": "AI drafts",
+      "kind": "ai",
+      "title": "AI drafts the fix and the narrative",
+      "body": "AI proposes the remediation and writes the auditor-facing narrative and gap analysis. It never authors evidence; evidence is computed from systems of record and rejected by schema if model-generated.",
+      "tag": "leverage, not authority"
+    },
+    {
+      "key": "pr",
+      "label": "Pull Request",
+      "kind": "human",
+      "title": "A human gate: the Pull Request",
+      "body": "A named function reviews the AI-drafted remediation. The merge is the authorization. Nothing becomes record without a human approving it first.",
+      "tag": "the human gate"
+    },
+    {
+      "key": "trail",
+      "label": "git history",
+      "kind": "record",
+      "title": "Git history is the audit trail",
+      "body": "On merge, the control status updates and the commit records who decided what, when, and why. The trail is immutable and already exists — audit prep is a query, not a reconstruction.",
+      "tag": "the immutable trail"
+    }
+  ],
+  "frictionPoints": [],
+  "controls": [
+    {
+      "id": "AAT-01",
+      "family": "AI governance",
+      "title": "AI and autonomous technologies governance",
+      "owner": "GRC + Security (Legal/Privacy joint on lawful basis)",
+      "automation": "partial",
+      "hero": true,
+      "why": "Plaid operates an agentic layer over its internal MCP server over 20+ internal tools and gRPC services; public ai coding toolkit for developer integrations. Autonomous systems that hold privileged access need a control for identity, least privilege, decision logging, and a human gate on high-impact actions — the hero control.",
+      "statement": "Policies for AI and autonomous-technology risk are defined, owned, and enforced. Autonomous agents read personal data only under purpose-bound authorization, at minimum scope, with full decision logging, and with human accountability for high-impact actions. No agent holds standing access to sensitive production data.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC6.1",
+            "CC6.2",
+            "CC6.3"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.5.1",
+            "A.8.2"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "AC-3",
+            "AC-6",
+            "AU-2"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "GV.OC",
+            "PR.AA"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "Agent Authorization Broker (OPA) + Consent Service",
+        "rows": [
+          [
+            "agent_id",
+            "safety-alert-agent"
+          ],
+          [
+            "trigger",
+            "crash_detection_high_confidence"
+          ],
+          [
+            "token_ttl_seconds",
+            "120"
+          ],
+          [
+            "consent_state",
+            "active"
+          ],
+          [
+            "decision",
+            "granted"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "IAC-17",
+      "family": "access management",
+      "title": "Periodic review of account privileges",
+      "owner": "Security (IAM)",
+      "automation": "partial",
+      "hero": false,
+      "why": "Periodic access review is the access pillar of identity and operations governance, the control auditors test first. It limits standing access to personal data.",
+      "statement": "Privileges for people and service accounts are reviewed on a fixed cadence against role and employment, and unjustified access is removed. Leaver deprovisioning fires from the human-resources system of record, not a manual ticket. Service and other non-human accounts are held to the same bar as human accounts.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC6.2",
+            "CC6.3"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "5.15",
+            "5.18",
+            "8.2"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "AC-2",
+            "AC-6"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "PR.AA-05"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "Okta IGA + Workday HRIS",
+        "rows": [
+          [
+            "accounts_in_scope",
+            "412"
+          ],
+          [
+            "reviewed",
+            "412"
+          ],
+          [
+            "revoked",
+            "7"
+          ],
+          [
+            "orphaned",
+            "0"
+          ],
+          [
+            "service_accounts_recertified",
+            "38/38"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "CHG-02",
+      "family": "change management",
+      "title": "Configuration change control",
+      "owner": "Engineering (Security owns the policy)",
+      "automation": "automated",
+      "hero": false,
+      "why": "Change control is a pillar of identity and operations governance. In a source-control-native program the pull request is the gate, and the evidence is a byproduct of shipping rather than reconstructed for an audit.",
+      "statement": "Technical configuration change reaches production only through a peer-reviewed pull request linked to a tracked work item, with required checks passing. Direct pushes to protected branches are blocked, the reviewer is independent of the author, and emergency changes follow a documented after-the-fact review.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC3.4",
+            "CC8.1"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "8.19",
+            "8.32"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "ID.RA-07"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "CM-3",
+            "CM-4",
+            "CM-5"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "PR.PS-01"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "GitHub (branch protection + merge API)",
+        "rows": [
+          [
+            "merges_to_prod",
+            "138"
+          ],
+          [
+            "with_linked_ticket",
+            "138"
+          ],
+          [
+            "with_independent_review",
+            "137"
+          ],
+          [
+            "direct_pushes_blocked",
+            "6"
+          ],
+          [
+            "exceptions_without_review",
+            "1"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "MON-01",
+      "family": "monitoring",
+      "title": "Continuous monitoring and event logging",
+      "owner": "Security (SOC)",
+      "automation": "automated",
+      "hero": false,
+      "why": "Continuous monitoring turns a point-in-time audit into a standing program. It is the engine of the drift-opens-an-Issue loop that makes due diligence visible.",
+      "statement": "Enterprise monitoring computes control health continuously. Security events ship to a central append-only store with retention and integrity protection. Logs establish what, when, where, source, outcome, and identity, and defined event types alert a monitored queue with an acknowledgement SLA.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC7.2"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "8.15",
+            "8.16"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "DE.CM-01",
+            "DE.CM-03",
+            "DE.CM-09"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "AU-2",
+            "AU-6",
+            "SI-4"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "DE.CM",
+            "DE.AE"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "SIEM + immutable object-lock store",
+        "rows": [
+          [
+            "sources_forwarding",
+            "64/64"
+          ],
+          [
+            "retention_days",
+            "400"
+          ],
+          [
+            "integrity_checks_failed",
+            "0"
+          ],
+          [
+            "alerts_ack_within_sla",
+            "309/311"
+          ],
+          [
+            "drift_issues_opened",
+            "14"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "TPM-01",
+      "family": "third-party risk",
+      "title": "Third-party management",
+      "owner": "GRC (Legal/Privacy on terms)",
+      "automation": "partial, workflow-tracked",
+      "hero": false,
+      "why": "Sensitive data flows to subprocessors and model providers. Diligence depth must match what a party can touch across internal MCP server over 20+ internal tools and gRPC services; public ai coding toolkit for developer integrations, and trust evidence a vendor already produced should be reused, not re-collected.",
+      "statement": "Third parties with system or personal-data access are tiered by what they can touch, assessed before onboarding, and bound by security, breach-notice, and processing terms. High-risk parties reassess on cadence, and vendor trust evidence is reused rather than re-questionnaired.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC9.2",
+            "CC2.3"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "5.19",
+            "5.20",
+            "5.22"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "GV.SC-04",
+            "GV.SC-06",
+            "GV.SC-07"
+          ]
+        },
+        {
+          "fw": "ccpa_cpra",
+          "refs": [
+            "Â§7052(a)"
+          ]
+        },
+        {
+          "fw": "gdpr",
+          "refs": [
+            "Art. 28"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "SR-3",
+            "SR-6",
+            "SA-9"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "GV.SC"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "Vendor Risk tool + CLM",
+        "rows": [
+          [
+            "vendors_in_scope",
+            "96"
+          ],
+          [
+            "high_risk_current",
+            "18/18"
+          ],
+          [
+            "with_executed_dpa",
+            "96/96"
+          ],
+          [
+            "with_current_soc2",
+            "71"
+          ],
+          [
+            "overdue_reassessment",
+            "2"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "IRO-01",
+      "family": "incident response",
+      "title": "Incident response operations",
+      "owner": "Security (Legal/Privacy on notification)",
+      "automation": "partial",
+      "hero": false,
+      "why": "When an agent exceeds its scope or a breach clock starts, the response has to be rehearsed and the timeline defensible — including incidents that involve autonomous-agent scope on personal data.",
+      "statement": "Incidents are detected, triaged, contained, and recorded against a governed plan, including AI scope breaches. Legal/Privacy owns notification within statutory timelines, and every incident receives a post-incident review.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC7.3",
+            "CC7.4"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "5.24"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "DE.AE",
+            "RS.MI"
+          ]
+        },
+        {
+          "fw": "ccpa_cpra",
+          "refs": [
+            "Civil Code Â§1798.82",
+            "Â§7123(c)(17)"
+          ]
+        },
+        {
+          "fw": "gdpr",
+          "refs": [
+            "Art. 33",
+            "Art. 34"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "IR-4",
+            "IR-5",
+            "IR-8"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "RS.MA",
+            "DE.AE"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "paging + incident tracker + breach-decision log",
+        "rows": [
+          [
+            "incidents",
+            "9"
+          ],
+          [
+            "sev1",
+            "1"
+          ],
+          [
+            "ai_scope_incidents",
+            "1"
+          ],
+          [
+            "median_detect_to_triage_min",
+            "11"
+          ],
+          [
+            "notify_threshold_met",
+            "1"
+          ],
+          [
+            "regulator_notified_within_72h",
+            "1"
+          ],
+          [
+            "post_reviews_completed",
+            "9"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "CRY-01",
+      "family": "cryptography",
+      "title": "Use of cryptographic controls",
+      "owner": "Security (Engineering implements)",
+      "automation": "partial",
+      "hero": false,
+      "why": "Use of cryptographic controls — defined once and rendered into every in-scope framework's view.",
+      "statement": "Sensitive and regulated data is protected with cryptographic controls that meet a defined standard, in transit and at rest. Keys are generated, stored, rotated, and revoked under a documented key-management process, separated from the data they protect. Weak or deprecated algorithms and protocols are not used, and exceptions are tracked and time-bound.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC6.1",
+            "CC6.7"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "8.24"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "PR.DS-01",
+            "PR.DS-02"
+          ]
+        },
+        {
+          "fw": "gdpr",
+          "refs": [
+            "Art. 32"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "SC-8",
+            "SC-13",
+            "SC-28"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "PR.DS-01",
+            "PR.DS-02"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "VPM-01",
+      "family": "vulnerability management",
+      "title": "Vulnerability and patch management",
+      "owner": "Security (Engineering remediates)",
+      "automation": "automated",
+      "hero": false,
+      "why": "Vulnerability and patch management — defined once and rendered into every in-scope framework's view.",
+      "statement": "Technical vulnerabilities across code, dependencies, images, and infrastructure are discovered continuously, triaged by severity and exposure, and remediated within defined service levels. Internet-facing and sensitive-data systems carry the tightest timelines. Unremediated vulnerabilities past SLA are tracked as exceptions with a named owner and a closure plan.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC7.1"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "8.8"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "ID.RA-01",
+            "PR.PS-02"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "RA-5",
+            "SI-2"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "ID.RA-01",
+            "PR.PS-02"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "DCH-01",
+      "family": "data protection",
+      "title": "Data classification and protection",
+      "owner": "Legal/Privacy (Security and Engineering enforce)",
+      "automation": "partial",
+      "hero": false,
+      "why": "Data classification and protection — defined once and rendered into every in-scope framework's view.",
+      "statement": "Data is classified by sensitivity, and personal data are designated the highest-sensitivity class. Handling, retention, and disposal rules attach to the classification and are enforced. Data is minimized to what the declared purpose requires and deleted or restricted when the lawful basis ends. Cleartext flows of the highest-sensitivity classes are inventoried so every other control knows its scope.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "C1.1",
+            "C1.2"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "5.12",
+            "5.13",
+            "8.10",
+            "8.12"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "ID.AM-07",
+            "PR.DS-01"
+          ]
+        },
+        {
+          "fw": "gdpr",
+          "refs": [
+            "Art. 5(1)(c)",
+            "Art. 5(1)(e)",
+            "Art. 32"
+          ]
+        },
+        {
+          "fw": "ccpa_cpra",
+          "refs": [
+            "Civil Code Â§1798.100(c)"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "AC-4",
+            "SC-7",
+            "SI-4"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "PR.DS"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "SAT-02",
+      "family": "awareness and training",
+      "title": "Security awareness and role-based training",
+      "owner": "Security (People/HR delivers)",
+      "automation": "partial",
+      "hero": false,
+      "why": "Plaid operates an agentic layer over its internal MCP server over 20+ internal tools and gRPC services; public ai coding toolkit for developer integrations. Autonomous systems that hold privileged access need a control for identity, least privilege, decision logging, and a human gate on high-impact actions — the hero control.",
+      "statement": "Personnel complete security and privacy awareness training on hire and on a recurring cadence, and role-based training is delivered to functions with elevated access or specific obligations. Training covers the risks specific to this service: precise-location and minor-data handling, social-engineering resistance, and the governance of the agentic AI layer. Completion is tracked, and non-completion for in-scope roles is an exception with a named owner.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC1.4",
+            "CC2.2"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "6.3"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "PR.AT-01",
+            "PR.AT-02"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "AT-2",
+            "AT-3"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "PR.AT"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "GOV-01",
+      "family": "Governance",
+      "title": "Security and privacy governance program",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Security and privacy governance program — defined once and rendered into every in-scope framework's view.",
+      "statement": "A documented security and privacy program defines scope, ownership, and objectives, is approved by leadership, and is reviewed at least annually. Authority and accountability for the program are assigned to a named function.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC1.1",
+            "CC1.2",
+            "CC1.3"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.5.1",
+            "5.1",
+            "5.2"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "PM-1",
+            "PL-1"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "GV.OC",
+            "GV.PO"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "GOV-02",
+      "family": "Governance",
+      "title": "Policy hierarchy and periodic review",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Policy hierarchy and periodic review — defined once and rendered into every in-scope framework's view.",
+      "statement": "Policies, standards, and procedures form a maintained hierarchy with named owners, a review cadence, and version control. Each document is reviewed and re-approved on cadence or on material change.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC5.3"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.5.1",
+            "A.5.37"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "AC-1",
+            "AU-1",
+            "CM-1"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "GOV-03",
+      "family": "Governance",
+      "title": "Roles, responsibilities, and segregation of duties",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Roles, responsibilities, and segregation of duties — defined once and rendered into every in-scope framework's view.",
+      "statement": "Security responsibilities are assigned by role and documented in a RACI. Conflicting duties are separated; where separation is impractical, a compensating control is recorded.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC1.3",
+            "CC1.4"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.5.2",
+            "A.5.3"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "AC-5",
+            "PM-2"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "GV.RR"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "GOV-04",
+      "family": "Governance",
+      "title": "Program metrics and leadership reporting",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Program metrics and leadership reporting — defined once and rendered into every in-scope framework's view.",
+      "statement": "Control health and program performance are measured and reported to leadership on a fixed cadence, with material risks escalated. Metrics are computed from systems of record, not assembled by hand.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC4.1",
+            "CC4.2"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "9.1",
+            "9.3"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "CA-7",
+            "PM-6"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "GV.OV"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "RSK-01",
+      "family": "Risk Management",
+      "title": "Risk assessment methodology",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Risk assessment methodology — defined once and rendered into every in-scope framework's view.",
+      "statement": "Risk is assessed using a documented, repeatable method that estimates likelihood and impact in defined terms. Assessments run on cadence and on significant change.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC3.1",
+            "CC3.2",
+            "CC3.4"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "6.1.2",
+            "8.2"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "RA-3",
+            "PM-9"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "ID.RA",
+            "GV.RM"
+          ]
+        },
+        {
+          "fw": "gdpr",
+          "refs": [
+            "Art 35"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "RSK-02",
+      "family": "Risk Management",
+      "title": "Risk register and treatment",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Risk register and treatment — defined once and rendered into every in-scope framework's view.",
+      "statement": "Identified risks are recorded in a register with an owner, treatment decision, and target date. Accepted risk is approved at an authority level matched to its severity.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC3.2",
+            "CC9.1"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "6.1.3",
+            "8.3"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "RA-7",
+            "CA-5"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "GV.RM",
+            "ID.RA"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "AST-01",
+      "family": "Asset Management",
+      "title": "Asset inventory and ownership",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Asset inventory and ownership — defined once and rendered into every in-scope framework's view.",
+      "statement": "A maintained inventory records hardware, software, services, and data stores with an owner for each. The inventory is reconciled from authoritative discovery, not a manual list.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC6.1"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.5.9",
+            "A.5.10"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "CM-8",
+            "PM-5"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "ID.AM"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "AST-02",
+      "family": "Asset Management",
+      "title": "Data and asset classification",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Data and asset classification — defined once and rendered into every in-scope framework's view.",
+      "statement": "Assets and data are classified by sensitivity against a defined scheme, and handling requirements follow from the classification.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC6.1",
+            "C1.1"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.5.12",
+            "A.5.13"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "RA-2",
+            "MP-3"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "ID.AM-05"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "AST-03",
+      "family": "Asset Management",
+      "title": "Secure disposal of media and equipment",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Secure disposal of media and equipment — defined once and rendered into every in-scope framework's view.",
+      "statement": "Media and equipment holding confidential data are sanitized or destroyed before disposal or reuse, with the action recorded.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC6.5"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.7.10",
+            "A.7.14",
+            "A.8.10"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "MP-6"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "IAM-01",
+      "family": "Identity & Access Management",
+      "title": "Access provisioning from joiner-mover-leaver",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Periodic access review is the access pillar of identity and operations governance, the control auditors test first. It limits standing access to personal data.",
+      "statement": "Access is granted, changed, and revoked from authoritative HR events. Leaver access is removed on the same day the leaver event fires; the feed is the trigger, not a ticket.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC6.1",
+            "CC6.2",
+            "CC6.3"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.5.16",
+            "A.5.18"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "AC-2",
+            "PS-4",
+            "PS-5"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "PR.AA"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "IAM-03",
+      "family": "Identity & Access Management",
+      "title": "Least privilege and privileged access management",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Periodic access review is the access pillar of identity and operations governance, the control auditors test first. It limits standing access to personal data.",
+      "statement": "Access follows least privilege. Privileged access is brokered, time-bound where feasible, and separately logged. Standing administrative access is minimized.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC6.1",
+            "CC6.3"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.8.2",
+            "A.8.18"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "AC-6",
+            "AC-2(7)"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "PR.AA-05"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "IAM-04",
+      "family": "Identity & Access Management",
+      "title": "Authentication and multi-factor enforcement",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Periodic access review is the access pillar of identity and operations governance, the control auditors test first. It limits standing access to personal data.",
+      "statement": "Users authenticate with unique identities and phishing-resistant multi-factor where supported. MFA is enforced for remote and administrative access.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC6.1"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.5.17",
+            "A.8.5"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "IA-2",
+            "IA-5"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "PR.AA-03"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "IAM-05",
+      "family": "Identity & Access Management",
+      "title": "Service and non-human identity governance",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Periodic access review is the access pillar of identity and operations governance, the control auditors test first. It limits standing access to personal data.",
+      "statement": "Service accounts, API keys, and workload identities are registered with an owner, scoped to least privilege, and rotated or expired. No standing secret without an owner.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC6.1",
+            "CC6.3"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.5.16",
+            "A.8.2"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "AC-2",
+            "IA-5(5)"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "PR.AA-01"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "CHG-02-BASELINE",
+      "family": "Change Management",
+      "title": "Baseline configuration and hardening",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Change control is a pillar of identity and operations governance. In a source-control-native program the pull request is the gate, and the evidence is a byproduct of shipping rather than reconstructed for an audit.",
+      "statement": "Systems are built from approved, hardened baselines, and deviations are detected and reconciled. Baselines follow a recognized hardening standard.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC7.1",
+            "CC8.1"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.8.9"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "CM-2",
+            "CM-6"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "PR.PS-01"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "CRY-02",
+      "family": "Cryptographic Protections",
+      "title": "Key management",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Key management — defined once and rendered into every in-scope framework's view.",
+      "statement": "Cryptographic keys are generated, stored, rotated, and retired under a defined lifecycle, with access to key material restricted and logged.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC6.1"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.8.24"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "SC-12",
+            "SC-17"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "DCH-02",
+      "family": "Data Protection & Privacy",
+      "title": "Data retention and disposal",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Regulated personal data is processed only on a lawful basis, with the data subject's rights honored end to end across internal MCP server over 20+ internal tools and gRPC services; public ai coding toolkit for developer integrations.",
+      "statement": "Data is retained only as long as required by a defined schedule and is disposed of when the schedule expires, with disposal recorded.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "C1.2",
+            "P4.2"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.5.33",
+            "A.8.10"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "SI-12",
+            "MP-6"
+          ]
+        },
+        {
+          "fw": "gdpr",
+          "refs": [
+            "Art 5.1(e)",
+            "Art 17"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "PRI-01",
+      "family": "Data Protection & Privacy",
+      "title": "Privacy notice and lawful basis",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Regulated personal data is processed only on a lawful basis, with the data subject's rights honored end to end across internal MCP server over 20+ internal tools and gRPC services; public ai coding toolkit for developer integrations.",
+      "statement": "Personal data is processed for a stated purpose under a documented lawful basis, and a plain-language notice describes what is collected, why, and the individual's rights.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "P1.1",
+            "P2.1"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.5.34"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "PT-1",
+            "PT-5",
+            "PM-9"
+          ]
+        },
+        {
+          "fw": "gdpr",
+          "refs": [
+            "Art 6",
+            "Art 13",
+            "Art 30"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "PRI-02",
+      "family": "Data Protection & Privacy",
+      "title": "Data subject rights handling",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Regulated personal data is processed only on a lawful basis, with the data subject's rights honored end to end across internal MCP server over 20+ internal tools and gRPC services; public ai coding toolkit for developer integrations.",
+      "statement": "Requests to access, correct, delete, or port personal data are honored within statutory timelines, with identity verified before action.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "P5.1",
+            "P6.1"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "PT-6",
+            "IP-1"
+          ]
+        },
+        {
+          "fw": "gdpr",
+          "refs": [
+            "Art 12",
+            "Art 15",
+            "Art 16",
+            "Art 17",
+            "Art 20"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "MON-02",
+      "family": "Logging & Monitoring",
+      "title": "Log integrity and retention",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Continuous monitoring turns a point-in-time audit into a standing program. It is the engine of the drift-opens-an-Issue loop that makes due diligence visible.",
+      "statement": "Logs are protected against alteration with write-once or equivalent integrity controls and retained for a defined period. Clocks are synchronized to an authoritative source.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC7.2"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.8.15",
+            "A.8.17"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "AU-9",
+            "AU-11",
+            "AU-8"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "NET-01",
+      "family": "Network Security",
+      "title": "Network segmentation and boundary protection",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Network segmentation and boundary protection — defined once and rendered into every in-scope framework's view.",
+      "statement": "Networks are segmented by trust and sensitivity, and traffic crossing boundaries is filtered by default-deny rules that are reviewed on cadence.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC6.6",
+            "CC6.1"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.8.20",
+            "A.8.22"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "SC-7",
+            "AC-4"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "PR.IR-01"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "NET-02",
+      "family": "Network Security",
+      "title": "Secure remote access",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Secure remote access — defined once and rendered into every in-scope framework's view.",
+      "statement": "Remote access to internal resources is authenticated, encrypted, and least-privilege, and administrative access originates from controlled paths.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC6.6",
+            "CC6.7"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.6.7",
+            "A.8.5"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "AC-17",
+            "SC-7"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "SDLC-01",
+      "family": "Secure Development",
+      "title": "Secure development gates",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Secure development gates — defined once and rendered into every in-scope framework's view.",
+      "statement": "Security requirements and checks are built into design, build, test, and deploy stages, and a release cannot pass without its required gates emitting evidence.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC8.1"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.8.25",
+            "A.8.27",
+            "A.8.28"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "SA-3",
+            "SA-8",
+            "SA-11"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "PR.PS-06"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "SDLC-02",
+      "family": "Secure Development",
+      "title": "Software supply chain and dependency integrity",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Software supply chain and dependency integrity — defined once and rendered into every in-scope framework's view.",
+      "statement": "Third-party and open-source components are inventoried, scanned for known vulnerabilities, and verified for integrity before use. Build provenance is recorded.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC8.1",
+            "CC9.2"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.8.28",
+            "A.8.30"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "SA-12",
+            "SR-3",
+            "SR-4"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "GV.SC",
+            "ID.RA-09"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "SDLC-03",
+      "family": "Secure Development",
+      "title": "Secrets management",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Secrets management — defined once and rendered into every in-scope framework's view.",
+      "statement": "Secrets are stored in a managed vault, never in source or configuration, and are scanned for in code. Exposed secrets are rotated on detection.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC6.1"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.8.24",
+            "A.8.31"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "IA-5",
+            "SC-12"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "VPM-02",
+      "family": "Vulnerability & Patch Management",
+      "title": "Penetration testing",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Penetration testing — defined once and rendered into every in-scope framework's view.",
+      "statement": "Independent testing exercises the environment on cadence and after significant change, and findings feed the remediation queue and the risk register.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC4.1",
+            "CC7.1"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.8.8",
+            "A.8.29"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "CA-8",
+            "RA-5"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "END-01",
+      "family": "Endpoint Security",
+      "title": "Endpoint protection and detection",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Endpoint protection and detection — defined once and rendered into every in-scope framework's view.",
+      "statement": "Endpoints run managed protection that detects and responds to malicious activity, with coverage and health monitored centrally.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC6.8",
+            "CC7.1"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.8.7"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "SI-3",
+            "SI-4"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "DE.CM-09"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "END-02",
+      "family": "Endpoint Security",
+      "title": "Device management and hardening",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Device management and hardening — defined once and rendered into every in-scope framework's view.",
+      "statement": "Managed devices enforce configuration, disk encryption, and screen lock, and access from unmanaged devices to confidential data is restricted.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC6.7",
+            "CC6.8"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.8.1",
+            "A.7.9"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "CM-6",
+            "AC-19"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "IRO-02",
+      "family": "Incident Response",
+      "title": "Breach notification",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "When an agent exceeds its scope or a breach clock starts, the response has to be rehearsed and the timeline defensible — including incidents that involve autonomous-agent scope on personal data.",
+      "statement": "When an incident meets a statutory or contractual threshold, affected parties and regulators are notified within required windows, with the decision and its basis recorded.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC7.4",
+            "P6.3"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.5.26",
+            "A.5.5"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "IR-6"
+          ]
+        },
+        {
+          "fw": "gdpr",
+          "refs": [
+            "Art 33",
+            "Art 34"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "BCD-01",
+      "family": "Business Continuity & DR",
+      "title": "Business continuity and disaster recovery",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Business continuity and disaster recovery — defined once and rendered into every in-scope framework's view.",
+      "statement": "Recovery objectives are set from a business impact analysis, and continuity and recovery plans are documented, resourced, and tested on cadence.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "A1.2",
+            "A1.3"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.5.29",
+            "A.5.30"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "CP-2",
+            "CP-4"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "RC.RP",
+            "PR.IR-03"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "BCD-02",
+      "family": "Business Continuity & DR",
+      "title": "Backup and restoration",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Backup and restoration — defined once and rendered into every in-scope framework's view.",
+      "statement": "Critical data and systems are backed up on a defined schedule with backups protected and restoration verified by test, not assumption.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "A1.2"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.8.13"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "CP-9",
+            "CP-10"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "TPM-02",
+      "family": "Third-Party Risk",
+      "title": "Subprocessor and data-flow assurance",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Sensitive data flows to subprocessors and model providers. Diligence depth must match what a party can touch across internal MCP server over 20+ internal tools and gRPC services; public ai coding toolkit for developer integrations, and trust evidence a vendor already produced should be reused, not re-collected.",
+      "statement": "Where personal or sensitive data flows to subprocessors, processing terms, breach-notice windows, and transfer mechanisms are in place and recorded.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC9.2"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.5.21"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "SR-5",
+            "SA-9"
+          ]
+        },
+        {
+          "fw": "gdpr",
+          "refs": [
+            "Art 28",
+            "Art 44",
+            "Art 46"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "HRS-01",
+      "family": "Human Resources Security",
+      "title": "Personnel screening and agreements",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Personnel screening and agreements — defined once and rendered into every in-scope framework's view.",
+      "statement": "Personnel are screened proportionate to role before access, and acknowledge security and confidentiality obligations. A disciplinary path exists for violations.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC1.1",
+            "CC1.4"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.6.1",
+            "A.6.2",
+            "A.6.4"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "PS-3",
+            "PS-6",
+            "PS-8"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "PES-01",
+      "family": "Physical & Environmental",
+      "title": "Physical access and environmental protection",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Physical access and environmental protection — defined once and rendered into every in-scope framework's view.",
+      "statement": "Physical access to facilities and data-bearing equipment is restricted, logged, and reviewed. Where infrastructure is cloud-hosted, provider attestations are inherited and tracked.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC6.4"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.7.1",
+            "A.7.2",
+            "A.7.4"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "PE-2",
+            "PE-3",
+            "PE-6"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    },
+    {
+      "id": "AAT-02",
+      "family": "AI Governance",
+      "title": "Model and prompt change management",
+      "owner": "",
+      "automation": "partial",
+      "hero": false,
+      "why": "Plaid operates an agentic layer over its internal MCP server over 20+ internal tools and gRPC services; public ai coding toolkit for developer integrations. Autonomous systems that hold privileged access need a control for identity, least privilege, decision logging, and a human gate on high-impact actions — the hero control.",
+      "statement": "Changes to models, prompts, and tool grants follow change control with pre-deployment evaluation, drift checks, rollback, and an approval gate.",
+      "crosswalk": [
+        {
+          "fw": "soc2",
+          "refs": [
+            "CC8.1"
+          ]
+        },
+        {
+          "fw": "iso27001",
+          "refs": [
+            "A.8.32"
+          ]
+        },
+        {
+          "fw": "nist_800_53",
+          "refs": [
+            "CM-3",
+            "SA-11"
+          ]
+        },
+        {
+          "fw": "nist_csf",
+          "refs": [
+            "PR.PS-01"
+          ]
+        }
+      ],
+      "evidence": {
+        "source": "system of record",
+        "rows": []
+      }
+    }
+  ],
+  "roadmap": [
+    {
+      "window": "0–30",
+      "theme": "Baseline the control surface",
+      "milestones": [
+        "Inventory the control universe and regulatory obligation register.",
+        "Map the in-scope frameworks to the existing control library.",
+        "Stand up the repo as system of record; confirm the GRC-tool sink.",
+        "Data-flow map; pinpoint where compliance slows engineering."
+      ],
+      "aiAccelerates": "AI drafts the control-to-framework crosswalk and the baseline narrative in an afternoon vs ~2 weeks by hand; the inventory stays computed from systems of record."
+    },
+    {
+      "window": "30–60",
+      "theme": "Computed continuous evidence",
+      "milestones": [
+        "Wire daily checks so control health is computed, not reconstructed.",
+        "Turn on the drift-opens-an-Issue loop.",
+        "Ship the priority control's audit-ready evidence, crosswalked to every in-scope framework.",
+        "Route exceptions to the GRC sink with control ID, owner, and framework impact."
+      ],
+      "aiAccelerates": "AI drafts the auditor narratives and the crosswalk in an afternoon vs ~3 weeks; evidence stays deterministically computed and is schema-rejected if model-generated."
+    },
+    {
+      "window": "60–90",
+      "theme": "Audit-ready and the trust story",
+      "milestones": [
+        "Run a gap assessment for the next target framework off existing mappings.",
+        "Publish trust-center collateral and reusable security-questionnaire answers.",
+        "Extend incident response to AI-agent-scope incidents.",
+        "Hand leadership a resourced readiness view by framework."
+      ],
+      "aiAccelerates": "AI drafts the gap workpapers, crosswalk, and first trust collateral in days vs ~4 weeks, with a named function approving before anything becomes record."
+    }
+  ],
+  "collateral": [],
+  "guardrails": [
+    "Built from public research only. No claim is made about Plaid's internal security posture.",
+    "AI drafts narratives and remediations; a human approves before anything becomes record. Evidence is computed from systems of record, never authored by a model.",
+    "Functions and roles are named — never individuals. Accountability attaches to a function."
+  ],
+  "stack": [
+    {
+      "name": "aws",
+      "role": "cloud — evidence source for access, change, ops"
+    },
+    {
+      "name": "github",
+      "role": "code — the operating model lives here; change evidence is the merge"
+    },
+    {
+      "name": "jira",
+      "role": "ticketing — the remediation work order"
+    }
+  ],
+  "contact": {
+    "name": "Tiffani Dickerson",
+    "role": "GRC — governance, risk & compliance",
+    "email": "tiffanidickerson437@gmail.com",
+    "repoUrl": "https://github.com/tiffanidickerson437-lang/compliance-program"
+  },
+  "meta": {
+    "slug": "plaid",
+    "generated_by": "onboard_company.py",
+    "ai_generated": false
+  }
+}

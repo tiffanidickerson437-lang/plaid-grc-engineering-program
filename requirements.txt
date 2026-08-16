@@ -1,0 +1,12 @@
+# The instruments in this repository depend on exactly one third-party package.
+#
+# Everything else is the Python standard library, deliberately: a portfolio artifact that
+# cannot run because a transitive dependency moved is not a working artifact. There is no
+# network call, no API key, and no model in any code path here.
+#
+# Install with hash verification:
+#     pip install --require-hashes -r requirements.txt
+#
+# Without hashes, `pip install pyyaml` is sufficient to run everything.
+
+pyyaml==6.0.3

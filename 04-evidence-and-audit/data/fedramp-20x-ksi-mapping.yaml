@@ -1,0 +1,154 @@
+# =============================================================================
+# FedRAMP 20x Key Security Indicators -> Living Control Set mapping.
+# Single source of truth; the rendered KSI map generates from this file.
+#
+# WHY THIS IS IN A PLAID REPOSITORY
+# ---------------------------------
+# Plaid holds no FedRAMP authorization. The trust center (security.plaid.com, fetched
+# 2026-08-15) lists SOC 2 Type 2, ISO 27001 and ISO 27701 and nothing federal.
+#
+# The posting is what puts this here. Verbatim, from the responsibilities:
+#
+#   "Future-proof for Continuous Compliance: Build toward machine-readable, continuously
+#    validated evidence (FedRAMP 20x-style Key Security Indicators), positioning Plaid to
+#    meet continuous-compliance expectations as we enter new markets and pursue new
+#    authorizations."
+#
+# and from the nice-to-haves: "Direct experience with FedRAMP or FedRAMP 20x, or other
+# public-sector / continuous-compliance authorizations."
+#
+# So this mapping is not a claim that Plaid needs FedRAMP today. It is the artifact for the
+# one responsibility the posting frames as forward-looking, built before the conversation
+# rather than promised during it.
+#
+# WHY KSIs ARE THE RIGHT MODEL EVEN WITHOUT AN AUTHORIZATION
+# ----------------------------------------------------------
+# FedRAMP RFC-0006 specifies that KSIs are "designed to produce final validations that are
+# true or false", and that packages "must be in a machine-readable format that can be
+# regenerated on demand". RFC-0017 goes further and states that assessors "MUST NOT rely on
+# screenshots, configuration dumps, or other point-in-time output as evidence."
+#
+# That is the same standard the posting sets for this role — "turning compliance into code,
+# evidence into telemetry, and audits into a continuous, automated capability" — written
+# down by a federal program with a normative MUST NOT attached. The KSI set is therefore
+# useful to Plaid as a continuous-compliance yardstick years before it is useful as an
+# authorization requirement.
+#
+# BASIS (primary, version-stamped)
+# --------------------------------
+#   - KSI set: FedRAMP Consolidated Rules for 2026 (CR26), official launch 2026-06-24,
+#     from the FedRAMP/2026-markdown repository (reference/key-security-indicators.md):
+#     46 KSIs across 10 categories. This is the CURRENT authority and supersedes the older
+#     20x Phase 2 counts (56 Low / 61 Moderate) that still circulate in vendor blogs.
+#   - Anchor: CR26 publishes Related SP 800-53 Controls per KSI, and every Living Control
+#     Set control carries 800-53 references. Each row is first computed from that shared
+#     800-53 overlap, then curated by judgment; `basis` says which.
+#
+# COVERAGE VOCABULARY
+# -------------------
+#   covered - the engine control's operating behavior satisfies the KSI's
+#             persistent-review / automation intent
+#   partial - a real control exists and a named modernization delta remains;
+#             the delta is the work, stated plainly
+#
+# Nothing is scored "met" for any company here. Coverage describes the ENGINE's control
+# set, never Plaid's implementation state, which is not public and is not claimed.
+#
+# PORTED, NOT REGENERATED. This mapping is control-to-KSI, and the controls are the
+# engine's — so it is company-agnostic by construction and carries over unchanged from the
+# Mattermost instance where it was first built. Every one of the 44 controls the Plaid
+# config renders is present in the engine's set, so no row was dropped. Only the
+# company-specific `note` fields were rewritten; the relationships were not re-derived,
+# because re-deriving a company-agnostic mapping per company is exactly the duplication the
+# engine exists to prevent.
+# =============================================================================
+
+metadata:
+  framework_key: fedramp_20x_ksi
+  framework_name: "FedRAMP 20x Key Security Indicators (CR26 2026-06-24)"
+  ksi_count: 46
+  source: "github.com/FedRAMP/2026-markdown reference/key-security-indicators.md"
+  basis_checked: 2026-07-17
+  ported_to_plaid: 2026-08-15
+  authorization_status: >
+    Plaid holds no FedRAMP authorization as of 2026-08-15. This mapping is a
+    continuous-compliance yardstick, not an assessment, not a readiness claim, and not a
+    statement that an authorization is planned.
+  summary: {covered: 39, partial: 7, unaddressed: 0}
+
+categories:
+  - category: Cybersecurity Education
+    ksis:
+      - {id: KSI-CED-RAT, title: Reviewing All Training, coverage: covered, controls: [SAT-02, HRS-01], basis: computed}
+
+  - category: Change Management
+    ksis:
+      - {id: KSI-CMT-LMC, title: Logging Changes, coverage: covered, controls: [CHG-02, MON-01], basis: computed}
+      - {id: KSI-CMT-RMV, title: Redeploying vs Modifying, coverage: covered, controls: [CHG-02-BASELINE, CHG-02], basis: computed, note: "the engine's GitHub-native operating model is exactly this: version-controlled redeploy over direct modification"}
+      - {id: KSI-CMT-RVP, title: Reviewing Change Procedures, coverage: covered, controls: [CHG-02], basis: computed}
+      - {id: KSI-CMT-VTD, title: Validating Throughout Deployment, coverage: covered, controls: [CHG-02, VPM-01, SDLC-01], basis: mixed, note: "Plaid's published security platform validates on every pull request and again on a daily full scan; that cadence is this KSI's intent already operating"}
+
+  - category: Cloud Native Architecture
+    ksis:
+      - {id: KSI-CNA-DFP, title: Defining Functionality and Privileges, coverage: covered, controls: [CHG-02-BASELINE, IAM-03], basis: mixed}
+      - {id: KSI-CNA-EIS, title: Enforcing Intended State, coverage: covered, controls: [MON-01, CHG-02-BASELINE, GOV-04], basis: mixed, note: "the drift-opens-a-ticket loop is this KSI's exact mechanism"}
+      - {id: KSI-CNA-IBP, title: Implementing Best Practices, coverage: covered, controls: [CHG-02-BASELINE, NET-02], basis: computed}
+      - {id: KSI-CNA-MAT, title: Minimizing Attack Surface, coverage: covered, controls: [NET-01, CRY-01], basis: computed}
+      - {id: KSI-CNA-OFA, title: Optimizing for Availability, coverage: partial, controls: [BCD-01, NET-01], basis: judgment, note: "delta: the control set is confidentiality-weighted; availability engineering (autoscaling, load-shedding review) is a named extension. Material for a data network whose customers depend on connection uptime"}
+      - {id: KSI-CNA-RNT, title: Restricting Network Traffic, coverage: covered, controls: [NET-01], basis: computed}
+      - {id: KSI-CNA-RVP, title: Reviewing Protections, coverage: partial, controls: [NET-01, MON-01], basis: judgment, note: "delta: DoS-protection effectiveness review (SC-5) has no dedicated engine control; boundary plus monitoring carry it today"}
+      - {id: KSI-CNA-ULN, title: Using Logical Networking, coverage: covered, controls: [NET-01], basis: computed}
+
+  - category: Identity and Access Management
+    ksis:
+      - {id: KSI-IAM-AAM, title: Automating Account Management, coverage: covered, controls: [IAM-01, IAC-17, IAM-05], basis: computed}
+      - {id: KSI-IAM-APM, title: Adopting Passwordless Methods, coverage: partial, controls: [IAM-04], basis: computed, note: "delta: MFA and phishing-resistant factors are in; a passwordless-first posture is the modernization step"}
+      - {id: KSI-IAM-ELP, title: Ensuring Least Privilege, coverage: covered, controls: [IAM-03], basis: computed}
+      - {id: KSI-IAM-JIT, title: Authorizing Just-in-Time, coverage: partial, controls: [IAM-03], basis: judgment, note: "delta: least privilege and PAM exist; a just-in-time, attribute-based authorization model is the named build. CR26 publishes no 800-53 refs for this KSI — it is genuinely new. Plaid's internal MCP server already issues short-lived DPoP bearer tokens via Device Authorization Grant, which is the JIT primitive; the gap is the control and the evidence, not the mechanism"}
+      - {id: KSI-IAM-SNU, title: Securing Non-User Authentication, coverage: covered, controls: [IAM-05, SDLC-03], basis: computed, note: "the engine carries a dedicated non-human-identity control; most programs bolt this on later. Directly relevant to an estate running dozens of internal agents"}
+      - {id: KSI-IAM-SUS, title: Responding to Suspicious Activity, coverage: covered, controls: [IAC-17, MON-01, IAM-01], basis: mixed}
+
+  - category: Incident Response
+    ksis:
+      - {id: KSI-INR-AAR, title: Generating After Action Reports, coverage: covered, controls: [IRO-01], basis: computed}
+      - {id: KSI-INR-RIR, title: Reviewing Incident Response Procedures, coverage: covered, controls: [IRO-01, IRO-02], basis: computed}
+      - {id: KSI-INR-RPI, title: Reviewing Past Incidents, coverage: covered, controls: [IRO-01, RSK-02], basis: mixed, note: "Plaid's published practice of encoding bug bounty findings as permanent automated guardrails is this KSI executed as engineering rather than as a retrospective document"}
+
+  - category: Monitoring, Logging, and Auditing
+    ksis:
+      - {id: KSI-MLA-ALA, title: Authorizing Log Access, coverage: covered, controls: [MON-02, IAM-03], basis: judgment, note: "CR26 anchors this to SI-11; the engine carries the same function through AU-9 (protect audit information, privileged-subset management)"}
+      - {id: KSI-MLA-EVC, title: Evaluating Configurations, coverage: covered, controls: [CHG-02-BASELINE, GOV-04], basis: computed}
+      - {id: KSI-MLA-LET, title: Logging Event Types, coverage: covered, controls: [MON-01], basis: computed}
+      - {id: KSI-MLA-OSM, title: Operating SIEM Capability, coverage: covered, controls: [MON-01, MON-02], basis: computed}
+      - {id: KSI-MLA-RVL, title: Reviewing Logs, coverage: covered, controls: [MON-01], basis: computed}
+
+  - category: Policy and Inventory
+    ksis:
+      - {id: KSI-PIY-GIV, title: Generating Inventories, coverage: covered, controls: [AST-01], basis: computed}
+      - {id: KSI-PIY-RES, title: Reviewing Executive Support, coverage: covered, controls: [GOV-01, GOV-04], basis: judgment}
+      - {id: KSI-PIY-RIS, title: Reviewing Investments in Security, coverage: covered, controls: [GOV-01, GOV-04, RSK-01], basis: judgment}
+      - {id: KSI-PIY-RSD, title: Reviewing Security in the SDLC, coverage: covered, controls: [SDLC-01], basis: computed, note: "Plaid's security platform post describes SDLC security as shared infrastructure — CI templates and Terraform modules enforcing the same checks across every repo by default. This KSI is the review cadence over that"}
+      - {id: KSI-PIY-RVD, title: Reviewing Vulnerability Disclosures, coverage: covered, controls: [VPM-01], basis: computed, note: "Plaid has run a public bounty-paying HackerOne program since March 2018 with published response targets (48h first response, 5 business days to triage). Those are researcher-facing RESPONSIVENESS targets, not internal remediation SLAs — this KSI is about the disclosure review process, which they demonstrably operate"}
+
+  - category: Recovery Planning
+    ksis:
+      - {id: KSI-RPL-ABO, title: Aligning Backups with Objectives, coverage: covered, controls: [BCD-02], basis: computed}
+      - {id: KSI-RPL-ARP, title: Aligning Recovery Plan, coverage: covered, controls: [BCD-01, BCD-02], basis: computed}
+      - {id: KSI-RPL-RRO, title: Reviewing Recovery Objectives, coverage: covered, controls: [BCD-01], basis: computed}
+      - {id: KSI-RPL-TRC, title: Testing Recovery Capabilities, coverage: covered, controls: [BCD-01, BCD-02], basis: computed}
+
+  - category: Supply Chain Risk
+    ksis:
+      - {id: KSI-SCR-MIT, title: Mitigating Supply Chain Risk, coverage: covered, controls: [TPM-01, TPM-02, SDLC-02], basis: mixed}
+      - {id: KSI-SCR-MON, title: Monitoring Supply Chain Risk, coverage: covered, controls: [TPM-01, TPM-02, VPM-01], basis: computed, note: "reachability-aware dependency scanning is named in Plaid's published pipeline; that is this KSI's monitoring half already running"}
+
+  - category: Service Configuration
+    ksis:
+      - {id: KSI-SVC-ACM, title: Automating Configuration Management, coverage: covered, controls: [CHG-02-BASELINE, END-02], basis: computed}
+      - {id: KSI-SVC-ASM, title: Automating Secret Management, coverage: covered, controls: [SDLC-03, CRY-02], basis: computed, note: "dedicated secrets-management control already in the set"}
+      - {id: KSI-SVC-EIS, title: Evaluating and Improving Security, coverage: covered, controls: [VPM-01, VPM-02, MON-01], basis: computed}
+      - {id: KSI-SVC-PRR, title: Preventing Residual Risk, coverage: partial, controls: [CHG-02, AST-03], basis: judgment, note: "delta: post-change residual-element review (SC-4 flavor) is carried indirectly by change review and disposal; a persistent automated sweep is the named build. Optional at Class B"}
+      - {id: KSI-SVC-RUD, title: Removing Unwanted Data, coverage: covered, controls: [DCH-02], basis: computed, note: "load-bearing here: the 2022 class settlement carried non-monetary commitments to minimize stored data and delete certain previously retrieved data. This KSI is the continuous version of that obligation"}
+      - {id: KSI-SVC-SIN, title: Securing Information, coverage: covered, controls: [CRY-01, DCH-01], basis: computed, note: "Plaid's published KMS design — AWS KMS as root of trust, envelope encryption, a policy that all sensitive data must be protected using Plaid KMS — is this KSI's mechanism. Note the engine cites the architecture, never an algorithm or key size: Plaid publishes neither"}
+      - {id: KSI-SVC-VCM, title: Validating Communications, coverage: partial, controls: [CRY-01], basis: judgment, note: "delta: session authenticity is protected (SC-23 family); persistent AUTOMATED validation of inter-resource communications integrity is the modernization step. Optional at Class B"}
+      - {id: KSI-SVC-VRI, title: Validating Resource Integrity, coverage: partial, controls: [SDLC-02, CRY-01, CHG-02-BASELINE], basis: mixed, note: "delta: dependency and artifact integrity are in; persistent runtime integrity validation of deployed resources is the named extension"}

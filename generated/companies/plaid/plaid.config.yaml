@@ -1,0 +1,200 @@
+# plaid.config.yaml — Plaid (GRC Engineering application, Ashby 587e83dd-1d1b-4f31-812a-74fc67d67fbe)
+#
+# Sources (pulled 2026-08-15). Every value below is marked with one of three states:
+#   VERIFIED          — quoted or directly observable on a named public source
+#   NAMED IN POSTING  — verbatim from the Ashby job description
+#   INFERRED          — the analyst's read; flagged so it is never mistaken for fact
+# A field with no defensible source is left EMPTY rather than guessed.
+#
+#   posting:       https://jobs.ashbyhq.com/plaid/587e83dd-1d1b-4f31-812a-74fc67d67fbe
+#   trust center:  https://security.plaid.com/            (last updated 2026-08-04)
+#   EU safety:     https://plaid.com/en-eu/safety/
+#   legal:         https://plaid.com/legal/
+#   bug bounty:    https://hackerone.com/plaid            (policy stamped 2026-07-28)
+#   engineering:   https://plaid.com/blog/security-as-a-platform/          (Carvalho, 2026-01-15)
+#                  https://engineering.plaid.com/security-at-scale-b94475905810  (Cui + Veeraragavan, 2024-12-19)
+#                  https://engineering.plaid.com/the-plaid-internal-mcp-server-8eff08bb6bdb (Keller, 2025-07-29)
+#   open source:   https://github.com/orgs/plaid/repositories
+#
+# Verbatim from the posting, load-bearing for this config: the team "own[s] Plaid's security
+# compliance frameworks"; the role is to build "a codified source of truth for controls,
+# policies, and evidence"; "one control maps evidence across SOC 2, ISO, NIST, and beyond";
+# "Working knowledge of SOC 2, ISO 27001/27701, and NIST CSF/800-53"; "machine-readable
+# continuous compliance (FedRAMP 20x)"; "Key Security Indicators"; tooling named as
+# nice-to-have: "Anecdotes, Drata, Vanta, Paramify, or similar".
+#
+# KNOWN RENDER LIMIT (verified 2026-08-15): the engine's crosswalk
+# (02-controls/framework-crosswalk.yaml) registers soc2, iso27001, iso42001, nist_ai_rmf,
+# nist_csf, coppa, ccpa_cpra, eu_ai_act, gdpr, hipaa, nist80053, pci. It does NOT register
+# iso27701 or fedramp_20x_ksi. Both are kept below for honesty and BOTH silently drop from
+# the rendered framework cards until the mapping exists. Closing those two gaps is the
+# deliverable — Plaid holds ISO 27701 today, and the posting names FedRAMP 20x as the
+# forward target.
+
+schema_version: 1
+
+company:
+  name: "Plaid"
+  legal_entity: "Plaid Inc."                     # INFERRED — commonly cited US parent name; the two
+                                                 # entities Plaid itself names on plaid.com/legal/ are
+                                                 # Plaid B.V. and Plaid Financial Ltd. VERIFY before
+                                                 # using on anything formal.
+  industry: fintech
+  sub_industry: open-banking-data-network
+  size: enterprise                               # NAMED IN POSTING: "12,000 financial institutions across
+                                                 # the US, Canada, UK and Europe"; "thousands of companies
+                                                 # like Venmo, SoFi, several of the Fortune 500"; offices in
+                                                 # SF, NY, DC, London, Amsterdam.
+  stage: continuous                              # VERIFIED: SOC 2 Type 2 + ISO 27001 + ISO 27701 already
+                                                 # held (security.plaid.com). The work is modernization and
+                                                 # scale, never greenfield — the posting says today's
+                                                 # compliance work is "manual and point-in-time".
+  description: >
+    Financial data network. Consumer-permissioned connections between people's bank
+    accounts and the apps they choose, delivered as an API and the Link SDK across
+    12,000 institutions in the US, Canada, UK and Europe. Founded 2013. Holds SOC 2
+    Type 2, ISO/IEC 27001 and ISO/IEC 27701 and publishes them through a two-tier
+    trust center. Two separately regulated European entities carry open banking
+    authorisations. The security organization treats controls as shared
+    infrastructure — CI templates, Terraform modules and services that enforce the
+    same checks across every repository by default — and this role extends that same
+    pattern from security scanning to compliance evidence.
+  listings: []                                   # VERIFIED: privately held; no public listing.
+
+frameworks:
+  primary:                                       # certification targets on an annual cycle
+    - soc2                                       # VERIFIED — trust center lists "SOC 2 Type 2"; the document
+                                                 # catalog names a "SOC 2 Type II with ISAE 3000 Combined
+                                                 # Report". NAMED IN POSTING. Report period and auditor are
+                                                 # NDA-gated — never state them.
+    - iso27001                                   # VERIFIED — trust center lists "ISO-27001". NAMED IN
+                                                 # POSTING. Do NOT state a version year (:2013 vs :2022);
+                                                 # the certificate is behind the NDA gate.
+    - iso27701                                   # VERIFIED — trust center lists "ISO 27701". NAMED IN
+                                                 # POSTING ("ISO 27001/27701"). NOT in the engine registry;
+                                                 # drops from the rendered cards until the crosswalk lands.
+                                                 # This is deliverable #1.
+  emerging:
+    - nist-csf                                   # NAMED IN POSTING: "NIST CSF/800-53". Engine core spine.
+    - nist-800-53                                # NAMED IN POSTING. Engine ships the 800-53 r5 profile and
+                                                 # the crosswalk maps all 45 controls to it.
+                                                 # TOKEN TRAP (found 2026-08-15): the crosswalk keys this
+                                                 # framework `nist80053`, but tools/onboard_company.py's
+                                                 # fw_id() normalizer only recognises `nist-800-53` /
+                                                 # `nist-sp-800-53`. Writing the crosswalk's own spelling
+                                                 # here makes the framework silently vanish from the
+                                                 # rendered cards with no error and no warning — a fully
+                                                 # mapped framework reported as absent. Logged as a defect
+                                                 # against the engine.
+    - gdpr                                       # INFERRED from the regulated EU/UK entities and ISO 27701
+                                                 # scope; Plaid does not badge GDPR on the trust center.
+    - ccpa                                       # INFERRED — US consumer financial data at CCPA/CPRA scale.
+    - fedramp_20x_ksi                            # NAMED IN POSTING: "machine-readable continuous compliance
+                                                 # (FedRAMP 20x)" and "FedRAMP 20x-style Key Security
+                                                 # Indicators". Plaid holds NO FedRAMP authorization today —
+                                                 # the posting frames it as forward-looking ("as we enter new
+                                                 # markets and pursue new authorizations"). NOT in the engine
+                                                 # registry. This is deliverable #2.
+
+stack:
+  # Only systems Plaid has itself named in public engineering writing. Anything unnamed is
+  # left empty rather than guessed — an invented system of record is an invented evidence source.
+  cloud:
+    - aws                                        # VERIFIED — trust center badges "AWS Foundational Technical
+                                                 # Review"; the KMS post says "AWS KMS provides our root of
+                                                 # trust" and describes "dozens of Kubernetes clusters hosted
+                                                 # in AWS"; the security platform post runs scans in-VPC.
+  identity: []                                   # DELIBERATELY UNSET — the MCP post names "an identity-aware
+                                                 # proxy" and "identity provider authentication" but never
+                                                 # names the IdP. Guessing Okta here would be fabrication.
+  code:
+    - github                                     # VERIFIED — github.com/plaid; the security platform post is
+                                                 # built on GitHub PR status checks and PR comments.
+  ticketing:
+    - jira                                       # VERIFIED — named in the internal MCP server post as one of
+                                                 # the 20+ integrated tools.
+  docs: []                                       # DELIBERATELY UNSET — "documentation systems" is named in
+                                                 # the MCP post, the product is not.
+  comms: []                                      # DELIBERATELY UNSET — not publicly named.
+  grc-tool: []                                   # DELIBERATELY UNSET. The posting names Anecdotes, Drata,
+                                                 # Vanta and Paramify only as nice-to-have FAMILIARITY, not
+                                                 # as tools Plaid runs. The trust center appears to be a
+                                                 # SafeBase-class hosted portal, but that is INFERRED from
+                                                 # page behaviour and is not asserted.
+
+risk:
+  appetite: low                                  # INFERRED — consumer financial account data, bank
+                                                 # credentials, and two regulated European entities whose
+                                                 # authorisations are revocable.
+  quantification: fair                           # NAMED IN POSTING (in substance): "Turn Data into Risk
+                                                 # Signal", "Drive Data-Informed Risk Assessments",
+                                                 # "recommend mitigations using data". FAIR is the engine's
+                                                 # quantification layer and the demo.
+  tolerance-statements:
+    # Each is phrased as an absolute negative tied to a specific mechanism, so it can become a
+    # hard gate in the register rather than a sentiment.
+    - "No consumer financial account data, bank credential, or access token enters an ungoverned model or an unapproved processing environment."
+    - "No control is reported as operating on evidence that cannot be recomputed from a system of record on demand."
+    - "No agent holds a standing entitlement to consumer financial data; access is purpose-bound, time-boxed, and revocable."
+
+# ai-products: true — turns on the 04-ai-governance pillar, the OWASP LLM Top 10 set,
+# agent-identity controls, and the NIST AI RMF + ISO 42001 crosswalk.
+ai-products: true
+ai:
+  agentic: true                                  # VERIFIED, INTERNAL surface — the MCP post reports
+                                                 # "thousands of tool calls and dozens of agents across
+                                                 # engineering, product, and support", incl. agents that
+                                                 # "triage bugs". Note the precision: this is Plaid's
+                                                 # INTERNAL agent estate, not an agentic consumer product.
+                                                 # Do not describe Plaid as shipping agentic AI to consumers.
+  product_surface: "internal MCP server over 20+ internal tools and gRPC services; public ai-coding-toolkit for developer integrations"
+  high_impact_actions:                           # each becomes a row in the human-oversight gate register
+    - internal_tool_call_on_consumer_data
+    - agent_query_against_production_datastore
+    - automated_evidence_or_control_state_write
+  foundation_model_use: true                     # VERIFIED — the MCP post names Claude Code and Cursor as
+                                                 # the AI clients the server serves. The posting names
+                                                 # "Claude, OpenAI" as agentic workflow platforms.
+
+# data-types selects the mandatory control families and the privacy obligation set.
+data-types:
+  - pii
+  - financial-account-data                       # balances, transactions, identity, investments, liabilities
+  - bank-credentials                             # the Link credential and OAuth handoff path; the token chain
+                                                 # link_token -> public_token -> access_token is the control point
+  - consumer-report-data                         # INFERRED, and the least certain entry here — Plaid Check is
+                                                 # a consumer-reporting surface and FCRA status is UNVERIFIED
+                                                 # as of 2026-08-15. Kept for honesty; must NOT be stated as
+                                                 # fact anywhere public until confirmed.
+
+# regulated-jurisdictions selects which privacy regimes appear in the obligation register.
+regulated-jurisdictions:
+  - us
+  - eu                                           # VERIFIED — Plaid B.V., KvK 74716603, supervised by De
+                                                 # Nederlandsche Bank under R179714, providing AIS/PIS under
+                                                 # PSD2.
+  - uk                                           # VERIFIED — Plaid Financial Ltd, company 11103959, FCA firm
+                                                 # reference 804718, under the UK Payment Services
+                                                 # Regulations 2017. NOT "EU PSD2" — PSD2 stopped applying to
+                                                 # UK firms after 2020-12-31. Plaid's own safety page blurs
+                                                 # this; the repo states it correctly.
+  - canada                                       # NAMED IN POSTING: network covers "the US, Canada, UK and
+                                                 # Europe".
+
+emphasis:
+  hero_control: AAT-01                           # Agent authorization. Chosen because Plaid has publicly
+                                                 # documented building the ENFORCEMENT point — identity-aware
+                                                 # proxy, call-time tool restrictions, short-lived DPoP
+                                                 # bearer tokens — while the posting is hiring someone to
+                                                 # make the governing CONTROL continuous and machine-readable.
+  hero_pillar: 06-evidence-and-audit             # The posting's centre of gravity: "turning compliance into
+                                                 # code, evidence into telemetry, and audits into a
+                                                 # continuous, automated capability."
+
+provenance:
+  basis: public-sources-2026-08-15               # posting + trust center + legal/safety pages + HackerOne
+                                                 # policy + Plaid engineering blog. No claim is made about
+                                                 # Plaid's internal security posture.
+  evidence_in_repo: none                         # LOAD-BEARING. No Plaid evidence exists in the repo and
+                                                 # none is claimed. Every evidence record shipped is either
+                                                 # computed from a public surface or explicitly synthetic.

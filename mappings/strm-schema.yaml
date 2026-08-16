@@ -1,0 +1,94 @@
+# Canonical STRM (Set Theory Relationship Mapping) schema for every mapping in mappings/.
+#
+# THIS FILE IS THE SINGLE DECLARATION OF MAPPING DIRECTIONALITY. Every mapping file,
+# tool, and document in this repository references this definition instead of
+# restating it. Two prior files in this repo defined subset/superset in opposite
+# directions; an inverted sign silently flips every coverage percentage, so the
+# direction is now declared exactly once, here.
+strm_schema:
+  version: "1.0.0"
+  directionality:
+    rule: >
+      The owned (SCF-spine) control is the REFERENCE document. The external
+      framework requirement is the FOCAL document. Every relationship_type below
+      is read as: "the focal framework requirement, relative to our reference
+      control." (Directionality convention per the SCF Guidebook, p.26.)
+    reference_document: the owned control (master_control_id in 02-controls/control-library.yaml)
+    focal_document: the external framework requirement (external_requirement_id)
+
+  relationship_types:
+    equal-to:
+      definition: >
+        The framework requirement and our control cover the same ground.
+        Complete coverage; reuse the control's evidence as-is.
+      coverage: complete
+    subset-of:
+      definition: >
+        The framework requirement is NARROWER than our control; our control is
+        broader and provides FULL coverage of the requirement plus extra.
+        Reuse the control's evidence.
+      coverage: complete-plus-extra
+    superset-of:
+      definition: >
+        The framework requirement is BROADER than our control; our control
+        covers only part of it. This is a GAP: compute the delta and design the
+        missing coverage — a human decision, never auto-closed.
+      coverage: partial-gap
+    intersects-with:
+      definition: >
+        The framework requirement and our control overlap partially, with each
+        covering ground the other does not. Partial coverage; compute the delta,
+        human design required for the uncovered remainder.
+      coverage: partial-overlap
+    no-relationship:
+      definition: >
+        The framework requirement and our control do not overlap. No coverage;
+        a new control is needed.
+      coverage: none
+
+  relationship_strength:
+    description: >
+      Integer 1-10 rating how strongly the declared relationship holds.
+      1 = nominal, 5 = moderate, 10 = strongest.
+    type: integer
+    minimum: 1
+    maximum: 10
+
+  # Shape of one mapping entry. Authored by a human; tools draft empty
+  # templates and validate, they never guess relationships.
+  entry_schema:
+    mapping:
+      master_control_id: string, required — must exist in the control catalog
+      external_framework: string, required — display name of the framework
+      external_requirement_id: string, required — the focal requirement's ID
+      strm_parameters:
+        relationship_type: required — exactly one of the 5 relationship_types above
+        relationship_strength: required — integer 1-10 per relationship_strength
+      references: required — non-empty list of citations (source file, section,
+        or document) supporting the mapping
+    example:
+      mapping:
+        master_control_id: "GOV-03"
+        external_framework: "NIST CSF 2.0"
+        external_requirement_id: "GV.OC-01"
+        strm_parameters:
+          relationship_type: "subset-of"
+          relationship_strength: 10
+        references:
+          - "frameworks/<framework>.requirements.yaml#GV.OC-01"
+
+  # Coverage scoring formula (used verbatim by tools/strm_coverage.py).
+  coverage_formula:
+    per_requirement_score:
+      equal-to: strength / 10
+      subset-of: strength / 10
+      superset-of: 0.5 * strength / 10
+      intersects-with: 0.5 * strength / 10
+      no-relationship: 0
+      unmapped: 0
+    per_requirement_aggregation: max score across that requirement's mapping entries
+    framework_coverage_percent: mean of all requirement scores * 100
+  coverage_semantics:
+    complete: equal-to or high-strength subset-of — complete coverage, reuse evidence
+    partial: superset-of or intersects-with — partial, compute the delta, human design required
+    none: no-relationship or unmapped — new control needed

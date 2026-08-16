@@ -1,0 +1,65 @@
+# Every checker, attacked — on every push and every pull request.
+#
+# No path filter. A change anywhere in this repository runs the whole suite, because the
+# mappings and the validators are coupled: editing a mapping can invalidate a validator's
+# assumptions, and editing a validator can silently start accepting a bad mapping.
+#
+# NO STEP MAY SWALLOW A FAILURE. No `|| true`, no `continue-on-error`. A green check that
+# cannot go red is decoration, and a compliance repository whose CI is decoration is worse
+# than one with no CI at all — it manufactures unearned confidence.
+#
+# This is the check to gate `main` on in branch protection.
+
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12'
+
+      - name: Install
+        run: pip install -r requirements.txt
+
+      # The validators run FIRST. If a mapping is invalid, the tests that assert
+      # "the committed mapping is valid" would fail anyway — but this ordering makes
+      # the actual reason visible in the log instead of buried in a test name.
+      - name: Validate the FedRAMP 20x KSI mapping
+        run: python3 04-evidence-and-audit/data/ksi_coverage.py --check
+
+      - name: Validate the ISO 27701 STRM draft
+        run: python3 04-evidence-and-audit/data/strm_coverage.py --check
+
+      - name: Attack the KSI validator (17 mutation tests)
+        run: python3 04-evidence-and-audit/data/test_ksi_coverage.py
+
+      - name: Attack the STRM validator (16 mutation tests)
+        run: python3 04-evidence-and-audit/data/test_strm_coverage.py
+
+      # Every generated artifact must be reproducible from its source. If a rendered
+      # report differs from what is committed, the committed one is stale and the repo
+      # is asserting a coverage number it can no longer produce.
+      - name: Rendered reports are not stale
+        run: |
+          python3 04-evidence-and-audit/data/ksi_coverage.py --render
+          python3 04-evidence-and-audit/data/strm_coverage.py --render
+          if ! git diff --exit-code -- 04-evidence-and-audit/frameworks/; then
+            echo "::error::A rendered report is stale. Re-run the tools and commit the output."
+            exit 1
+          fi
