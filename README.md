@@ -8,7 +8,7 @@
 [![engine](https://img.shields.io/badge/engine-compliance--program-2b5cff)](https://github.com/tiffanidickerson437-lang/compliance-program)
 [![evidence](https://img.shields.io/badge/evidence__in__repo-none-6b7280)](#ground-rules)
 
-**▶ [The walkthrough site](https://tiffanidickerson437-lang.github.io/plaid-grc-engineering-program/)** — the same argument in one page, matched to the posting line by line.
+**▶ [The walkthrough](https://tiffanidickerson437-lang.github.io/plaid-acd5e5/)** — the same argument in one page, matched to the posting line by line. Source: [`docs/index.html`](docs/index.html).
 
 ## Run it — 30 seconds, no key, no network
 
